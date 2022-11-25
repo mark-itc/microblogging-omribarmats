@@ -1,0 +1,9 @@
+.feed {
+    width: 600px;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
