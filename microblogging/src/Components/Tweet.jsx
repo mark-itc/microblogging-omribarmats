@@ -5,9 +5,9 @@ export const Tweet = (props) => {
     <div className="Tweet">
       <div className="details">
         <div className="userName">{props.userName}</div>
-        <div className="date">{props.date.toISOString()}</div>
+        <div className="date">{props.date}</div>
       </div>
-      <p className="content">{props.text}</p>
+      <p className="content">{props.content}</p>
     </div>
   );
 };
