@@ -36,7 +36,11 @@ const TweetsProvider = ({ children }) => {
 
   useEffect(() => {
     asignTwits();
-  }, [tweetSuccess]);
+    const interval = setInterval(() => {
+      asignTwits();
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <TweetsContext.Provider

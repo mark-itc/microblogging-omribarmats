@@ -6,8 +6,9 @@ import { UserNameContext } from "../Contexts/UserNameContext";
 
 export const CreateTweet = () => {
   const [tweetText, setTweetText] = useState("");
-  const { tweetSuccess, setTweetSuccess } = useContext(TweetsContext);
-  const { userName, setUsername } = useContext(UserNameContext);
+  const { tweetSuccess, setTweetSuccess, tweetsList, setTweetsList } =
+    useContext(TweetsContext);
+  const { userName } = useContext(UserNameContext);
 
   const handleTweetClick = (tweetText, userName) => {
     const tweet = {
@@ -23,6 +24,7 @@ export const CreateTweet = () => {
     const results = await fetchTweetToAPI(tweet);
     if (results.success) {
       setTweetSuccess(true);
+      setTweetsList([tweet, ...tweetsList]);
     } else {
       alert(results.message);
       setTweetSuccess(true);
