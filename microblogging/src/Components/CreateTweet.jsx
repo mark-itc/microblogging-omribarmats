@@ -1,10 +1,13 @@
-import "../Styles/CreateTweet.css";
 import { useState, useContext } from "react";
+import "../Styles/CreateTweet.css";
 import { TweetsContext } from "../Contexts/TweetContext";
+import { Button } from "./Button";
+import { UserNameContext } from "../Contexts/UserNameContext";
 
 export const CreateTweet = () => {
   const [tweetText, setTweetText] = useState("");
   const { tweetSuccess, setTweetSuccess } = useContext(TweetsContext);
+  const { userName, setUsername } = useContext(UserNameContext);
 
   const handleTweetClick = (tweetText, userName) => {
     const tweet = {
@@ -55,30 +58,25 @@ export const CreateTweet = () => {
         onChange={(event) => setTweetText(event.target.value)}
         placeholder="What you have in mind..."
       ></textarea>
-      <div
-        className={
-          tweetText.length > 140 || tweetText.length === 0 || !tweetSuccess
-            ? "createTweetButtonDisabled"
-            : "createTweetButton"
-        }
-      >
-        <button
-          type="button"
-          disabled={
-            tweetText.length > 140 || tweetText.length === 0 || !tweetSuccess
-          }
-          onClick={(event) => {
-            event.preventDefault();
-            handleTweetClick(tweetText, "yonatan");
-          }}
-        >
-          Tweet
-        </button>
+      <div className={"createTweetRuler"}>
         {tweetText.length > 140 ? (
           <div className="over140CharsAlert">
             The tweet can't contain more then 140 chars.
           </div>
         ) : null}
+        <div class="tweetButton">
+          <Button
+            text="Tweet"
+            type="button"
+            disabled={
+              tweetText.length > 140 || tweetText.length === 0 || !tweetSuccess
+            }
+            onClick={(event) => {
+              event.preventDefault();
+              handleTweetClick(tweetText, userName);
+            }}
+          />
+        </div>
 
         {!tweetSuccess ? <div className="spinner"></div> : null}
       </div>

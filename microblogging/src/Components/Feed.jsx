@@ -1,6 +1,6 @@
-import "../Styles/Feed.css";
 import { CreateTweet } from "./CreateTweet";
 import { TweetsList } from "./TweetsList";
+import "../Styles/Feed.css";
 
 export const Feed = () => {
   return (

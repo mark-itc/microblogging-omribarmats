@@ -1,23 +1,22 @@
 .Tweet {
-    background-color: #343a40;
-    margin-top: 15px;
-    padding: 20px;
-    border: none;
-    border-radius: 6px;
-  }
-  
-  .details {
-    color: #6c757d;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-size: 14px;
-  }
-  
-  .content {
-    font-size: 14px;
-    line-height: 16px;
-    color: #ffffff;
-    margin-top: 16px;
-  }
-  
+  background-color: #343a40;
+  margin-top: 15px;
+  padding: 20px;
+  border: none;
+  border-radius: 6px;
+}
+
+.details {
+  color: #6c757d;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.content {
+  font-size: 14px;
+  line-height: 16px;
+  color: #ffffff;
+  margin-top: 16px;
+}

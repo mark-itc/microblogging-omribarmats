@@ -35,7 +35,7 @@ const TweetsProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    asignTwits()
+    asignTwits();
   }, [tweetSuccess]);
 
   return (
@@ -43,8 +43,8 @@ const TweetsProvider = ({ children }) => {
       value={{
         tweetsList,
         setTweetsList,
-        tweetSuccess, 
-        setTweetSuccess
+        tweetSuccess,
+        setTweetSuccess,
       }}
     >
       {children}

@@ -9,9 +9,26 @@
 
 .App {
   display: flex;
-  flex-direction: row;
   min-height: 100vh;
   background-color: #15202b;
   display: flex;
   flex-direction: column;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 26px;
+}
+
+a {
+  color: #ffffff;
+  opacity: 0.5;
+}
+
+a:hover {
+  color: #ffffff;
+  opacity: 1;
 }

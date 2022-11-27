@@ -1,0 +1,23 @@
+.Navbar {
+  background-color: #343a40;
+  align-self: center;
+  width: 1076px;
+  height: 58px;
+  border: none;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 36px;
+  gap: 45px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.active {
+  opacity: 1;
+}
