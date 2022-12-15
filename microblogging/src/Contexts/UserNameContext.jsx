@@ -4,7 +4,7 @@ import localForage from "localforage";
 const UserNameContext = createContext();
 
 const UserNameProvidr = ({ children }) => {
-  const [userName, setUserName] = useState("Unknown");
+  const [userName, setUserName] = useState("Text");
 
   useEffect(() => {
     localForage.setItem("User Name", userName);

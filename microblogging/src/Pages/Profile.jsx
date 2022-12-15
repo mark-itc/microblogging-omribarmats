@@ -28,6 +28,7 @@ export const Profile = () => {
           navigate("/");
         }}
       />
+      <p>Test</p>
     </div>
   );
 };
