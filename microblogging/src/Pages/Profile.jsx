@@ -12,6 +12,7 @@ export const Profile = () => {
   return (
     <div className="Profile">
       <h2>Profile</h2>
+      <p>Test</p>
       <label htmlFor="profileName">User Name</label>
       <input
         onChange={(event) => setNewUserName(event.target.value)}
