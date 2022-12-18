@@ -23,12 +23,15 @@ h2 {
   margin-bottom: 26px;
 }
 
-a {
-  color: #ffffff;
-  opacity: 0.5;
-}
-
 a:hover {
   color: #ffffff;
   opacity: 1;
+  cursor: pointer;
+}
+
+img {
+  border: none;
+  border-radius: 50px;
+  width: 40px;
+  margin-right: 5px;
 }

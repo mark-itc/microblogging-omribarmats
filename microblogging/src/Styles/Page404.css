@@ -1,4 +1,4 @@
-.Profile {
+.page404 {
   width: 600px;
   align-self: center;
   display: flex;
@@ -7,15 +7,5 @@
   margin-bottom: 5px;
   display: flex;
   flex-direction: column;
-}
-
-button {
-  align-self: flex-end;
-}
-
-.profile-img {
-  border: none;
-  border-radius: 50px;
-  width: 100px;
-  margin-right: 5px;
+  text-align: center;
 }

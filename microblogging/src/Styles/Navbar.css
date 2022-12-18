@@ -11,13 +11,27 @@
   flex-direction: row;
   align-items: center;
   padding-left: 36px;
+  padding-right: 36px;
+  justify-content: space-between;
+}
+
+.Navbar-menu {
+  display: flex;
   gap: 45px;
 }
 
 a {
   text-decoration: none;
+  color: #ffffff;
+  opacity: 0.5;
 }
 
 .active {
   opacity: 1;
+}
+
+.navbar-profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

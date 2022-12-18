@@ -1,4 +1,4 @@
-.Profile {
+.login {
   width: 600px;
   align-self: center;
   display: flex;
@@ -9,13 +9,8 @@
   flex-direction: column;
 }
 
-button {
-  align-self: flex-end;
-}
-
-.profile-img {
-  border: none;
-  border-radius: 50px;
-  width: 100px;
-  margin-right: 5px;
+.login-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

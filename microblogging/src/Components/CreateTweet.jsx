@@ -2,47 +2,43 @@ import { useState, useContext } from "react";
 import "../Styles/CreateTweet.css";
 import { TweetsContext } from "../Contexts/TweetContext";
 import { Button } from "./Button";
-import { UserNameContext } from "../Contexts/UserNameContext";
+import { db } from "../firebase-config";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { AuthContext } from "../Contexts/Authcontext";
 
 export const CreateTweet = () => {
   const [tweetText, setTweetText] = useState("");
-  const { tweetSuccess, setTweetSuccess, tweetsList, setTweetsList } =
+  const { userName } = useContext(AuthContext);
+  const { tweetSuccess, setTweetSuccess, tweets, setTweets } =
     useContext(TweetsContext);
-  const { userName } = useContext(UserNameContext);
+
+  const tweetsCollectionRef = collection(db, "tweets");
 
   const handleTweetClick = (tweetText, userName) => {
     const tweet = {
       content: tweetText,
-      userName: userName,
-      date: new Date().toISOString(),
+      username: userName,
+      date: Timestamp.fromDate(new Date()),
     };
     postTweet(tweet);
     setTweetSuccess(false);
   };
 
   async function postTweet(tweet) {
-    const results = await fetchTweetToAPI(tweet);
+    const results = await fetchTweetToFireStore(tweet);
     if (results.success) {
       setTweetSuccess(true);
-      setTweetsList([tweet, ...tweetsList]);
+      setTweets([tweet, ...tweets]);
     } else {
       alert(results.message);
       setTweetSuccess(true);
     }
   }
 
-  async function fetchTweetToAPI(tweet) {
-    const requestMessage = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(tweet),
-    };
+  async function fetchTweetToFireStore(tweet) {
     try {
-      const response = await fetch(
-        `https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet`,
-        requestMessage
-      );
-      if (response.ok) {
+      let currentTweet = await addDoc(tweetsCollectionRef, tweet);
+      if (currentTweet.id) {
         return {
           success: true,
         };

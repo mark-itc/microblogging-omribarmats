@@ -4,17 +4,17 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { TweetsProvider } from "./Contexts/TweetContext";
-import { UserNameProvidr } from "./Contexts/UserNameContext";
+import { AuthProvider } from "./Contexts/Authcontext";
 import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <UserNameProvidr>
+    <AuthProvider>
       <TweetsProvider>
         <App />
       </TweetsProvider>
-    </UserNameProvidr>
+    </AuthProvider>
   </BrowserRouter>
 );
 
