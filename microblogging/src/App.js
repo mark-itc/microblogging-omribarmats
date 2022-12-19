@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
+import { Routes, Route, NavLink, useNavigate, Link } from "react-router-dom";
 import "./Styles/App.css";
 import "./Styles/Navbar.css";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -22,8 +22,6 @@ function App() {
     navigate("/login");
   };
 
-  console.log(user);
-
   return (
     <div className="App">
       {user?.accessToken && (
@@ -38,8 +36,18 @@ function App() {
           </div>
 
           <div class="navbar-profile">
-            <img width="50px" src={user?.photoURL} />
-            <p> {userName || user.displayName || user.email} |&nbsp;</p>
+            <a style={{ opacity: "1" }} href="/profile">
+              <img
+                width="50px"
+                src={
+                  user?.photoURL ||
+                  "https://firebasestorage.googleapis.com/v0/b/microblogging-app-omri-barmats.appspot.com/o/1J4u4ejqH9NCDrgVqAmb09Hr0ij1-profilePicture-Mon%2C%2019%20Dec%202022%2009%3A06%3A49%20GMT?alt=media&token=2489094e-2599-4922-8efc-ac8790514efb"
+                }
+              />
+            </a>
+            <a style={{ opacity: "1" }} href="/profile">
+              <p> {userName || user.displayName || user.email} |&nbsp;</p>
+            </a>
             <a onClick={logOut}>Log out</a>
           </div>
         </div>

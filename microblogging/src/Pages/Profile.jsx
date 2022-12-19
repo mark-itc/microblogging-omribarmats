@@ -21,24 +21,41 @@ export const Profile = () => {
   const [user] = useAuthState(auth);
   const { setUser, userName, setUserName, imageUpload, setImageUpload } =
     useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const uploadImage = async () => {
-    const imageRef = ref(storage, `test`);
+    setLoading(true);
+    const imageRef = ref(storage, user.uid);
 
-    uploadBytes(imageRef, imageUpload);
+    const snapshot = uploadBytes(imageRef, imageUpload);
 
     const photoURLnew = await getDownloadURL(imageRef);
 
     updateProfile(user, { photoURL: photoURLnew });
+    setLoading(false);
   };
 
   return (
     <div className="Profile">
       <h2>Profile</h2>
+      <div class="profile-details">
+        <img
+          className="profile-img"
+          src={
+            user?.photoURL
+              ? user.photoURL
+              : "https://firebasestorage.googleapis.com/v0/b/microblogging-app-omri-barmats.appspot.com/o/1J4u4ejqH9NCDrgVqAmb09Hr0ij1-profilePicture-Mon%2C%2019%20Dec%202022%2009%3A06%3A49%20GMT?alt=media&token=2489094e-2599-4922-8efc-ac8790514efb"
+          }
+        />
+        <div>
+          <h1>{user?.displayName}</h1>
+          <h4>{user?.email}</h4>
+        </div>
+      </div>
       <Input
         id="profileName"
         onChange={(event) => setNewUserName(event.target.value)}
-        labelText="User Name"
+        labelText="Edit user Name"
         placeholder={user?.displayName}
       />
       <Button
@@ -54,13 +71,13 @@ export const Profile = () => {
       <Input
         type="file"
         id="image"
-        labelText="Profile image"
+        labelText="Upload profile image"
         onChange={(event) => {
           setImageUpload(event.target.files[0]);
         }}
       />
       <Button onClick={uploadImage} text="Upload" />
-      <img className="profile-img" src={user?.photoURL} />
+      {loading && <p>Loading</p>}
     </div>
   );
 };

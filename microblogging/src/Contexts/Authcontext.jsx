@@ -1,20 +1,15 @@
 import { useState, createContext, useEffect } from "react";
-import {
-  auth,
-  signInWithGoogle,
-  updateUserNameDetails,
-} from "../firebase-config";
+import { auth, updateUserNameDetails } from "../firebase-config";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const [userName, setUserName] = useState(user?.displayName);
+  const [userName, setUserName] = useState(user?.email || "Unkown");
   const [imageUpload, setImageUpload] = useState(null);
 
-  console.log(userName);
-
   useEffect(() => {
+    setUserName(userName);
     updateUserNameDetails(userName);
   }, [userName]);
 

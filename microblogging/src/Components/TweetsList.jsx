@@ -2,34 +2,64 @@ import { useContext, useEffect } from "react";
 import { Tweet } from "./Tweet";
 import { TweetsContext } from "../Contexts/TweetContext";
 import { db } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  limit,
+  query,
+  orderBy,
+  startAfter,
+  startAt,
+} from "firebase/firestore";
+import { useState } from "react";
+import "../Styles/TweetsList.css";
 
 export const TweetsList = () => {
   const { tweets, setTweets } = useContext(TweetsContext);
-  const usersCollectionRef = collection(db, "tweets");
+  const tweetsCollectionRef = collection(db, "tweets");
 
-  useEffect(() => {
-    getTweets();
-    const interval = setInterval(() => {
-      getTweets();
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  const [tweetLimit, setTweetLimit] = useState(10);
+  console.log(tweetLimit);
 
-  const getTweets = async () => {
-    const data = await getDocs(usersCollectionRef);
-    const mapedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    setTweets(mapedData);
-    console.log(mapedData);
+  const getMoreTweets = () => {
+    const tweetsCollectionRef10 = query(
+      tweetsCollectionRef,
+      orderBy("date", "desc"),
+      limit(tweetLimit)
+    );
+
+    onSnapshot(tweetsCollectionRef10, (snapshot) => {
+      let liveTweets = [];
+      snapshot.docs.forEach((doc) => {
+        liveTweets.push({ ...doc.data(), id: doc.id });
+        setTweets(liveTweets);
+        setTweetLimit(tweetLimit + 10);
+      });
+    });
   };
 
-  const DateSortedTweets = tweets.sort(
-    (tweetA, tweetB) => tweetB.date.seconds - tweetA.date.seconds
-  );
+  useEffect(() => {
+    getMoreTweets();
+  }, []);
+
+  const handleScroll = (event) => {
+    let triggerHeight =
+      event.currentTarget.scrollTop + event.currentTarget.offsetHeight;
+    if (triggerHeight >= event.currentTarget.scrollHeight) {
+      setTimeout(() => {
+        getMoreTweets();
+      }, 1000);
+    }
+
+    console.log("scrollTop: ", event.currentTarget.scrollTop);
+    console.log("offsetHeight: ", event.currentTarget.offsetHeight);
+    console.log("scrollHeight: ", event.currentTarget.scrollHeight);
+  };
 
   return (
-    <div className="TweetsList">
-      {DateSortedTweets.map((tweet, index) => {
+    <div className="TweetsList" onScroll={handleScroll}>
+      {tweets.map((tweet, index) => {
         let date = new Date(tweet.date.seconds * 1000).toISOString();
         return (
           <>

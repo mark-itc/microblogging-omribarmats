@@ -32,6 +32,7 @@ a:hover {
 img {
   border: none;
   border-radius: 50px;
-  width: 40px;
-  margin-right: 5px;
+  width: 35px;
+  height: 35px;
+  margin-right: 7px;
 }

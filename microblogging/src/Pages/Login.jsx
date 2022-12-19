@@ -34,36 +34,26 @@ export const Login = () => {
   const { setUser, userName, setUserName, imageUpload, setImageUpload } =
     useContext(AuthContext);
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
 
   const signUpNewUser = async (e) => {
+    e.preventDefault();
     try {
-      console.log(userName);
-      e.preventDefault();
-      const user = await createUserWithEmailAndPassword(
+      const userCred = await createUserWithEmailAndPassword(
         auth,
         signUpEmail,
         signUpPssword
-      );
-      setUserName(newUsername);
-      uploadImage();
-      navigate("/");
-      await user.reload();
-    } catch (error) {
-      console.log(error.message);
+      ).then((userCred) => {
+        setUserName(userCred.user.email);
+        navigate("/");
+      });
+    } catch {
+      alert("You alredy have an account, try logging in");
     }
-  };
-
-  const uploadImage = () => {
-    if (imageUpload == null) return;
-    const imageRef = ref(storage, `images/${user.uid}.png`);
-    uploadBytes(imageRef, imageUpload).then(() => {
-      alert("image uploaded");
-    });
-    const downloadURL = getDownloadURL(ref(storage, imageRef));
-    console.log(downloadURL);
   };
 
   const logIn = async (e) => {
@@ -76,26 +66,19 @@ export const Login = () => {
       );
       navigate("/");
     } catch (error) {
-      console.log(error.message);
+      alert("Wrong password or email address");
     }
   };
 
   const logOut = () => {
     signOut(auth);
     navigate("/login");
-    console.log("something");
   };
 
   return (
     <div className="login">
       <div className="login">
         <h2>Sign-up</h2>
-        {user?.email}
-        <Input
-          id="signup-username"
-          onChange={(e) => setNewUserName(e.target.value)}
-          placeholder="User Name"
-        />
         <Input
           type="email"
           id="signup-email"
@@ -107,14 +90,7 @@ export const Login = () => {
           onChange={(e) => setSignUpPassword(e.target.value)}
           placeholder="Password"
         />
-        <Input
-          type="file"
-          id="image"
-          labelText="Profile image"
-          onChange={(event) => {
-            setImageUpload(event.target.files[0]);
-          }}
-        />
+
         <div className="login-buttons">
           <a onClick={signInWithGoogle}>
             Click here to sign-up with your google account

@@ -28,7 +28,6 @@ export const provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
-      console.log(result.user.accessToken);
       useNavigate("/");
     })
     .catch((error) => {
@@ -39,11 +38,9 @@ export const signInWithGoogle = () => {
 export const updateUserNameDetails = async (username) => {
   updateProfile(auth.currentUser, {
     displayName: username,
-  });
-  await auth.currentUser
-    .reload()
+  })
     .then(() => {
-      console.log(auth.currentUser.displayName);
+      useNavigate("/");
     })
     .catch((error) => {
       console.log(error);
@@ -55,7 +52,7 @@ export const updateProfileImage = async () => {
     photoURL: "https://picsum.photos/200/300",
   })
     .then(() => {
-      console.log(auth.currentUser.displayName);
+      useNavigate("/");
     })
     .catch((error) => {
       console.log(error);
